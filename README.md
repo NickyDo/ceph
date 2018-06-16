@@ -1,4 +1,4 @@
-#Overview về Ceph
+#Ceph
 ****************************************
 Ceph là giải pháp mã nguồn mở để xây dựng hạ tầng lưu trữ phân tán, ổn định, độ tin cậy và hiệu năng cao, dễ dàng mở rộng. Với hệ thống lưu trữ được điều khiển bằng phần mềm, Ceph cung cấp giải pháp lưu trữ theo đối tượng (Object), khối (Block) và tệp dữ liệu (File) trong một nền tảng đơn nhất. Ceph chạy trên nền tảng điện toán đám mây với các thiết bị phần cứng ổn định và tiên tiến nhất, giúp tiết kiệm chi phí và sử dụng dễ dàng với Linux Kernel.
 ##Tính năng:
