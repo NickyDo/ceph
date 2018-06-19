@@ -2,7 +2,7 @@
 
 Một object thường bao gồm dữ liệu và metadata được gói lại với nhau và được cung cấp một định danh duy nhất, đảm bảo ko có object khác có cùng ID.
 
-https://camo.githubusercontent.com/fdfc6d902d91aeeb997b3f1649bf84ecbeb78389/687474703a2f2f692e696d6775722e636f6d2f38636b4c3775302e706e67
+![CEPH_OBJECT](https://camo.githubusercontent.com/fdfc6d902d91aeeb997b3f1649bf84ecbeb78389/687474703a2f2f692e696d6775722e636f6d2f38636b4c3775302e706e67)
 
 ***Locating objects
 
@@ -23,7 +23,8 @@ Công việc tính toán metadata được coi như là CRUSH lookup và đượ
 Khi đọc và ghi, data được chuyển thành các objects với object và pool names/ID. Object được băm với number of placement groups to generate a final placement group within the required Ceph pool. Các tính toán về placement group được chuyển tới CRUSH lookup để xác định vị trí OSD lưu trữ hoặc lấy dữ liệu. Các tính toán này đc thực hiện bên phía client nên ko ảnh hưởng tới cluster.
 
 Vi du:
-https://camo.githubusercontent.com/c025e52122375ce1f7b830f2b89a2e03c7e12fb5/687474703a2f2f692e696d6775722e636f6d2f545356383558452e706e67
+
+![crush](https://camo.githubusercontent.com/c025e52122375ce1f7b830f2b89a2e03c7e12fb5/687474703a2f2f692e696d6775722e636f6d2f545356383558452e706e67)
 
 ***The CRUSH hierarchy
 
@@ -33,7 +34,7 @@ CRUSH là một cơ sở hạ tầng đầy đủ, nó duy trì một hệ thố
 
 Khi Ceph cluster nhận các requests data, nó tách thành các sections placement group (PG). Một PG là một tập hợp logic của các objects được replicate trên các OSDs.
 
-https://camo.githubusercontent.com/62e38d8db289e14f990e530cbfdbd0d097a751a0/687474703a2f2f692e696d6775722e636f6d2f463548415879762e706e67
+![pg](https://camo.githubusercontent.com/62e38d8db289e14f990e530cbfdbd0d097a751a0/687474703a2f2f692e696d6775722e636f6d2f463548415879762e706e67)
 
 ###4. Ceph pools
 
@@ -65,7 +66,7 @@ Erasure Code pool là một loại thay cho pool replica nhằm tiết kiệm kh
 
 Cache tier cung cấp I/O tốt hơn với việc tối ưu các lớp data đc lưu ở backing storage tier. Cache đc sắp xếp với nhau để tạo thành một pool với các storage device có tốc độ nhanh ví dụ SSD. Chúng đc cấu hình tạo thành cache tier và backing pool cho erasure-coded. Ceph objecter handles nơi chứa Objects và tiering agent xác định khi chuyển Objects từ cache sang backing storage tier, quá trình này trong suốt với người dùng.
 
-https://camo.githubusercontent.com/dbdb6b7569e6a0a9fb2fd5bb6f5947afca7dae16/687474703a2f2f692e696d6775722e636f6d2f347478526b62522e706e67
+![cache tiering](https://camo.githubusercontent.com/dbdb6b7569e6a0a9fb2fd5bb6f5947afca7dae16/687474703a2f2f692e696d6775722e636f6d2f347478526b62522e706e67)
 
 Cache tiering agent tiến hành migration data giữa cache tier and the backing storage tier tự động.
 

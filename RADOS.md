@@ -10,7 +10,8 @@ RADOS có 2 thành phần chính là OSD (object storage devices) và Monitor
 
 Một Ceph cluster bao gồm nhiều OSD. Ceph lưu trữ dữ liệu dưới dạng object trên các ổ đĩa vật lý.
 Object
-https://camo.githubusercontent.com/df9a6a0e6dbe4519057fa8f50c1eb9b526219f14/687474703a2f2f692e696d6775722e636f6d2f5a4a795873467a2e706e67
+
+![Image of cephOSD](https://camo.githubusercontent.com/df9a6a0e6dbe4519057fa8f50c1eb9b526219f14/687474703a2f2f692e696d6775722e636f6d2f5a4a795873467a2e706e67)
 
 Với các tác vụ đọc hoặc ghi, client gửi yêu cầu tới node monitor để lấy cluster map sau đó tương tác trực tiếp với OSD ko cần sự can thiệp của monitor.
 
@@ -21,7 +22,8 @@ Với các tác vụ đọc hoặc ghi, client gửi yêu cầu tới node monit
 Object được phân tán lưu trên nhiều OSD, mỗi OSD là primary OSD cho một số object và là secondary OSD cho object khác để tăng tính sẵn sàng và khả năng chống chịu lỗi. Khi primary OSD bị lỗi thì secondary OSD được đẩy lên làm primary OSD. Quá trình này trong suốt với ngưới dùng.
 
 ###1.1.Ceph OSD File System
-https://camo.githubusercontent.com/6a606cbf180b5cee22507ff3f8b57503343576fd/687474703a2f2f692e696d6775722e636f6d2f4a364e49656f6f2e706e67
+
+![Image of cephFS](https://camo.githubusercontent.com/6a606cbf180b5cee22507ff3f8b57503343576fd/687474703a2f2f692e696d6775722e636f6d2f4a364e49656f6f2e706e67)
 
 Ceph OSD gồm ổ cứng vật lý, Linux filesystem trên nó và Ceph OSD Service. Linux filesystem của Ceph cần hỗ trợ extended attribute (XATTRs). Các thuộc tính của filesystem này cung cấp các thông tin về trạng thái object, metadata, snapshot và ACL cho Ceph OSD daemon, hỗ trợ việc quản lý dữ liêu. LinuxFileSystem có thể là Btrfs, XFS hay Ext4. Sự khác nhau giữa các filesystem này như sau:
 <ul>
@@ -40,7 +42,7 @@ Ext4: Là một filesystem dạng journaling và cũng có thể sử dụng cho
 
 ###1.2. Ceph OSD Journal
 
-https://camo.githubusercontent.com/b4ff6e358bc5bf2871605f7daea6d74c90b34956/687474703a2f2f692e696d6775722e636f6d2f306971474232502e706e67
+![Image of cephOSD_journal](https://camo.githubusercontent.com/b4ff6e358bc5bf2871605f7daea6d74c90b34956/687474703a2f2f692e696d6775722e636f6d2f306971474232502e706e67)
 
 Ceph dùng các journaling filesystem là XFS cho OSD. Trước khi commit dữ liệu vào backing store, Ceph ghi dữ liệu vào một vùng lưu trữ tên là journal trước, vùng này hoạt động như là một phân vùng đệm (buffer), Journal nằm cùng hoặc khác đĩa với OSD, trên một SSD riêng hoặc một phân vùng, thậm chí là một file riêng trong filesystem. Với cơ chế này, Ceph ghi mọi thứ vào journal, rồi mới ghi vào backing storage.
 

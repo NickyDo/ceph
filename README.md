@@ -25,4 +25,5 @@ Ceph là giải pháp mã nguồn mở để xây dựng hạ tầng lưu trữ 
 </ul>
 
 ##Kiến trúc Ceph:
-![Image of Yaktocat](https://camo.githubusercontent.com/c76b1d9cb7747b2e93785ee14adf14b15d3f3b72/687474703a2f2f692e696d6775722e636f6d2f31715165466e492e706e67)
+
+![Image of ceph](https://camo.githubusercontent.com/c76b1d9cb7747b2e93785ee14adf14b15d3f3b72/687474703a2f2f692e696d6775722e636f6d2f31715165466e492e706e67)

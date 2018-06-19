@@ -1,7 +1,7 @@
 Librados là thư viện C cho phép ứng dụng làm việc trực tiếp với RADOS, bypass qua các lớp khác để tương tác với Ceph Cluste.librados là thư viện cho RADOS, cung cấp các hàm API, giúp ứng dụng tương tác trực tiếp và truy xuất song song vào cluster.Ứng dụng có thể mở rộng các giao thức của nó để truy cập vào RADOS bằng cách sử dụng librados. Các thư viện tương tự cũng sẵn sàng cho C++, Java, Python, Ruby, PHP. librados là nền tảng cho các service giao diện khác chạy bên trên, gồm Ceph block device, Ceph filesystem, Ceph RADOS Gateway. librados cung cấp rất nhiều API, các phương thức lưu trữ key/value trong object. API hỗ trợ atomic-single-object bằng cách update dữ liệu, key và các thuộc tính.
 ##1. Ceph Block Storage Device
 
-https://camo.githubusercontent.com/f624926bd03312b983437ba119c944d1d52a761a/687474703a2f2f692e696d6775722e636f6d2f4b6b45736775682e706e67
+![image of ceph bsd](https://camo.githubusercontent.com/f624926bd03312b983437ba119c944d1d52a761a/687474703a2f2f692e696d6775722e636f6d2f4b6b45736775682e706e67)
 
 Ceph Block Device có tên là RADOS block device (RBD); cung cấp block storage cho hypervisor và máy ảo. Ceph RBD driver được tích hợp với Linux kernel (từ bản 2.6.39) và hỗ trợ QEMU/KVM.
 
@@ -18,12 +18,15 @@ RBD sử dụng thư viện librbd để tận dụng các tiện ích của RAD
 Ceph hỗ trợ snapshot layering, nó cho phép clone image nhanh chóng và dễ dàng. Ceph hỗ trợ block device snapshots bằng rbd command và interfaces.
 
 Để sử dụng RBD snapshots, ta cần chạy Ceph cluster. Khuyến cáo nên dừng I/O trước khi snapshot. We recommend to stop I/O before taking a snapshot of an image. If the image contains a filesystem, the filesystem must be in a consistent state before taking a snapshot. To stop I/O you can use fsfreeze command.
-https://camo.githubusercontent.com/753e9b6f4e7197857e48ec79c5b75118d9e3d3a5/687474703a2f2f692e696d6775722e636f6d2f6b684b30324c792e706e67
+
+![snapshop](https://camo.githubusercontent.com/753e9b6f4e7197857e48ec79c5b75118d9e3d3a5/687474703a2f2f692e696d6775722e636f6d2f6b684b30324c792e706e67)
 
 ##1.2. Layering
 
 Ceph hỗ trợ khả năng copy-on-write(COW) clone of a block device snapshot.
-https://camo.githubusercontent.com/cfb0bcab9374055212bc281215a09ab6e89fe742/687474703a2f2f692e696d6775722e636f6d2f6546446947446c2e706e67
+
+![layering](https://camo.githubusercontent.com/cfb0bcab9374055212bc281215a09ab6e89fe742/687474703a2f2f692e696d6775722e636f6d2f6546446947446c2e706e67)
+
 Mỗi cloned image(child) tham chiếu tới parent image, nó cho phép mở parent snapshot và đọc snapshot.
 
 Note: Ceph chỉ hỗ trợ cloning định dạng images 2 ( rbd create --image-format 2)
@@ -55,7 +58,7 @@ Ceph block device ko thể sử dụng page cache của linux vì vậy nó có 
 
 ##2. Ceph Object Gateway
 
-https://camo.githubusercontent.com/c8a15ce4526bb69c2e7c9dd9080f2feda5caf811/687474703a2f2f692e696d6775722e636f6d2f324d4b383373792e706e67
+![COG](https://camo.githubusercontent.com/c8a15ce4526bb69c2e7c9dd9080f2feda5caf811/687474703a2f2f692e696d6775722e636f6d2f324d4b383373792e706e67)
 
 Ceph Object Gateway, hay RADOS Gateway, là một proxy chuyển các request HTTP thành các RADOS request và ngược lại, cung cấp RESTful object storage, tương thích với S3 và Swift. Ceph Object Storage sử dụng Ceph Object Gateway Daemon (radosgw) để tương tác với librgw và Ceph cluster, librados. Nó sử dụng một module FastCGI là libfcgi, và có thể sử dụng với bất cứ Server web tương thích với FASTCGI nào. Ceph Object Store hỗ trợ 3 giao diện sau:
 <ul>
@@ -75,6 +78,7 @@ Admin: Hỗ trợ quản trị Ceph Cluster thông qua HTTP RESTful API.
 Ceph Filesystem (CephFS) là một POSIX-compliant filesystem sử dụng Ceph Storage Cluster để lưu data. CephFS kế thừa các tính năng từ RADOS.
 
 Để sử dụng CephFS cần một Ceph MDS hay Metadata Server là daemon cho Ceph filesystem (CephFS). MDS là thành phần duy nhất trong ceph chưa production, hiện chỉ 1 ceph MDS daemon hoạt động tại 1 thời điểm. MDS không lưu dữ liệu local. Nếu 1 MDS daemon lỗi, ta có thể tạo lại trên bất cứ hệ thống nào mà cluster có thể truy cập. Các metadata server daemon được cấu hình là active-passive. Primary MDS là acive, còn các node khác chạy standby.
-https://camo.githubusercontent.com/cdaec535a1be9259d3b706bde72020dc3248a7a8/687474703a2f2f692e696d6775722e636f6d2f665050663569562e706e67
+
+![CEPHFS](https://camo.githubusercontent.com/cdaec535a1be9259d3b706bde72020dc3248a7a8/687474703a2f2f692e696d6775722e636f6d2f665050663569562e706e67)
 
 Thư viện libcephfs hỗ trợ Linux kernel driver, người dùng có thể dùng phương thức mounting filesystem qua lệnh mount. Nó hỗ trợ CIFS và SMB. CephFS hỗ trợ filesystem in userspace(FUSE) dùng module cephfuse. Nó cũng hỗ trợ ứng dụng tương tác trực tiếpvới RADOS cluster dùng thư viện libcephfs.
