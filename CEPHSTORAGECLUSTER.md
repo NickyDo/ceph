@@ -97,5 +97,19 @@ Cache tiering agent tiến hành migration data giữa cache tier and the backin
 </li>
 <li>
     Read-proxy Mode: Chế độ này sẽ dùng các Objects đang có trong cache tier, nếu Objects ko có trong cache thì sẽ chuyển yêu cầu xuống bên dưới.
-<li>
+</li>
 <ul>
+
+###7. Data Striping
+
+Thiết bị lưu trữ có giới hạn về lưu lượng, nó tác động tới hiệu suất và khả năng tính toán. Vì vậy hệ thống hỗ trợ Striping trên nhiều thiết bị để tăng hiệu suất.
+
+Ceph striping giống như chế độ RAID 0
+
+Ví dụ:
+
+![dt](https://camo.githubusercontent.com/e5bc94dd8deb964e39b22886b0a9d8875bda19ef/687474703a2f2f692e696d6775722e636f6d2f555070576778332e706e67)
+
+Trên hình ví dụ có 1 đoạn dữ liệu 123456. 123 được chia cho Object set 1. 456 được chia cho Object set 2. Các Object set tiếp tục phân chia thành các Objects theo số OSD. Sau đấy Striping nhỏ ra strip unit lưu trữ lên OSD.
+
+Với tính năng này thay vì xử lý lần lượt từ đầu đến cuối dữ liệu, ta xử lý các đoạn dữ liệu nhỏ cùng 1 lúc.
