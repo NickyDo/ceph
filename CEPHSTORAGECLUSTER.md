@@ -98,7 +98,7 @@ Cache tiering agent tiến hành migration data giữa cache tier and the backin
 <li>
     Read-proxy Mode: Chế độ này sẽ dùng các Objects đang có trong cache tier, nếu Objects ko có trong cache thì sẽ chuyển yêu cầu xuống bên dưới.
 </li>
-<ul>
+</ul>
 
 ###7. Data Striping
 
