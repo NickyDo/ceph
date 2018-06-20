@@ -61,6 +61,26 @@ CRUSH Rules: Khi lưu data xuống pool CRUSH Rules ánh xạ tới các pool CR
 ###5. Erasure Code
 
 Erasure Code pool là một loại thay cho pool replica nhằm tiết kiệm không gian.
+Ví dụ: 
+```
+ceph osd pool create ecpool 12 12 erasurepool 'ecpool' created
+```
+
+Nó giống với RAID5 và cần 3 hosts. Mặc định các erasure code profile duy trì cho 1 OSD và chỉ cần 1.5TB thay vì 2TB để lưu 1TB data. Các erasure code profile ko thể sửa đổi sau khi đc tạo.
+
+![pg](https://camo.githubusercontent.com/4449ab648df6ae2a8b149562c1e100538a862fd7/687474703a2f2f692e696d6775722e636f6d2f68323539344c562e706e67)
+
+Các thông số quan trọng k, m, ruleset-failure-domain nó xác định chi phí lưu trữ và độ bền dữ liệu.
+
+ví dụ:
+```
+$ ceph osd erasure-code-profile set myprofile \
+   k=3 \
+   m=2 \
+   ruleset-failure-domain=rack
+```
+
+Các object sẽ đc chia làm 3 và m xác định bao nhiêu OSD có thể hỏng cùng lúc mà ko mất dữ liệu. Số OSD dùng là m+k.
 
 ###6. Cache Tiering
 
